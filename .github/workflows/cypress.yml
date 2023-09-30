@@ -21,6 +21,9 @@ jobs:
       nodeVersion: ${{ steps.versions.outputs.nodeVersion }}
       npmVersion: ${{ steps.versions.outputs.npmVersion }}
 
+    env:
+      PUPPETEER_SKIP_DOWNLOAD: true
+
     steps:
       - name: Checkout app
         uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v3.5.2
