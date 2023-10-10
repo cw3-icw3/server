@@ -50,6 +50,10 @@ class Entry implements IEntry {
 
 	private array $properties = [];
 
+	private? string $status = null;
+	private? string $statusMessage = null;
+	private ?string $statusIcon = null;
+
 	public function setId(string $id): void {
 		$this->id = $id;
 	}
@@ -100,6 +104,14 @@ class Entry implements IEntry {
 	public function addAction(IAction $action): void {
 		$this->actions[] = $action;
 		$this->sortActions();
+	}
+
+	public function setStatus(string $status,
+		string $statusMessage = null,
+		string $icon = null): void {
+		$this->status = $status;
+		$this->statusMessage = $statusMessage;
+		$this->statusIcon = $icon;
 	}
 
 	/**
@@ -160,6 +172,9 @@ class Entry implements IEntry {
 			'emailAddresses' => $this->getEMailAddresses(),
 			'profileTitle' => $this->profileTitle,
 			'profileUrl' => $this->profileUrl,
+			'status' => $this->status,
+			'statusMessage' => $this->statusMessage,
+			'statusIcon' => $this->statusIcon,
 		];
 	}
 }
