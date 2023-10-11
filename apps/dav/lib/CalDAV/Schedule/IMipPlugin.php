@@ -41,14 +41,8 @@ use OCA\DAV\CalDAV\EventComparisonService;
 use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\Defaults;
 use OCP\IConfig;
-use OCP\IDBConnection;
-use OCP\IL10N;
-use OCP\IURLGenerator;
 use OCP\IUserManager;
-use OCP\L10N\IFactory as L10NFactory;
-use OCP\Mail\IEMailTemplate;
 use OCP\Mail\IMailer;
-use OCP\Security\ISecureRandom;
 use OCP\Util;
 use Psr\Log\LoggerInterface;
 use Sabre\CalDAV\Schedule\IMipPlugin as SabreIMipPlugin;
@@ -56,13 +50,9 @@ use Sabre\DAV;
 use Sabre\DAV\INode;
 use Sabre\VObject\Component\VCalendar;
 use Sabre\VObject\Component\VEvent;
-use Sabre\VObject\Component\VTimeZone;
-use Sabre\VObject\DateTimeParser;
 use Sabre\VObject\ITip\Message;
 use Sabre\VObject\Parameter;
-use Sabre\VObject\Property;
 use Sabre\VObject\Reader;
-use Sabre\VObject\Recur\EventIterator;
 
 /**
  * iMIP handler.
@@ -199,6 +189,11 @@ class IMipPlugin extends SabreIMipPlugin {
 		// we also might not have an old event as this could be a new
 		// invitation, or a new recurrence exception
 		$attendee = $this->imipService->getCurrentAttendee($iTipMessage);
+		// Don't send emails to things
+		if($this->imipService->isRoomOrResource($attendee)) {
+			$this->logger->debug('No invitation sent as recipient is room or resource');
+			return;
+		}
 		$this->imipService->setL10n($attendee);
 
 		// Build the sender name.
