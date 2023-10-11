@@ -87,6 +87,9 @@ export default {
 
 <style lang="scss" scoped>
 .clear-at-select {
+	@media only screen and (min-width: 320px) and (max-width: 1280px) {
+		flex-direction: column;
+	}
 	display: flex;
 	margin-bottom: 10px;
 	align-items: center;
