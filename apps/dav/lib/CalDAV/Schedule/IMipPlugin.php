@@ -192,6 +192,7 @@ class IMipPlugin extends SabreIMipPlugin {
 		// Don't send emails to things
 		if($this->imipService->isRoomOrResource($attendee)) {
 			$this->logger->debug('No invitation sent as recipient is room or resource');
+			$iTipMessage->scheduleStatus = '1.0;We got the message, but it\'s not significant enough to warrant an email';
 			return;
 		}
 		$this->imipService->setL10n($attendee);
