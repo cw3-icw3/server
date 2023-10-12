@@ -421,6 +421,78 @@ export default Vue.extend({
 			}
 		}
 
+		// Entry preview or mime icon
+		.files-list__row-icon {
+			position: relative;
+			display: flex;
+			overflow: visible;
+			align-items: center;
+			// No shrinking or growing allowed
+			flex: 0 0 var(--icon-preview-size);
+			justify-content: center;
+			width: var(--icon-preview-size);
+			height: 100%;
+			// Show same padding as the checkbox right padding for visual balance
+			margin-right: var(--checkbox-padding);
+			color: var(--color-primary-element);
+
+			// Icon is also clickable
+			* {
+				cursor: pointer;
+			}
+
+			& > span {
+				justify-content: flex-start;
+
+				&:not(.files-list__row-icon-favorite) svg {
+					width: var(--icon-preview-size);
+					height: var(--icon-preview-size);
+				}
+
+				// Slightly increase the size of the folder icon
+				&.folder-icon,
+				&.folder-open-icon {
+					margin: -3px;
+					svg {
+						width: calc(var(--icon-preview-size) + 6px);
+						height: calc(var(--icon-preview-size) + 6px);
+					}
+				}
+			}
+
+			&-preview {
+				overflow: hidden;
+				width: var(--icon-preview-size);
+				height: var(--icon-preview-size);
+				border-radius: var(--border-radius);
+				// Center and contain the preview
+				object-fit: contain;
+				object-position: center;
+
+				/* Preview not loaded animation effect */
+				&:not(.files-list__row-icon-preview--loaded) {
+					background: var(--color-loading-dark);
+					// animation: preview-gradient-fade 1.2s ease-in-out infinite;
+				}
+			}
+
+			&-favorite {
+				position: absolute;
+				top: 0px;
+				right: -10px;
+			}
+
+			// Folder overlay
+			&-overlay {
+				position: absolute;
+				max-height: 18px;
+				max-width: 18px;
+				color: var(--color-main-background);
+				// better alignment with the folder icon
+				margin-top: 2px;
+			}
+		}
+
 		// Entry link
 		.files-list__row-name {
 			// Prevent link from overflowing
