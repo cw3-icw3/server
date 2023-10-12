@@ -31,7 +31,7 @@ namespace OCP\SetupCheck;
 interface ISetupCheckManager {
 	/**
 	 * @since 28.0.0
-	 * @return array<string,array<string,array{severity:string,description:?string,linkToDoc:?string}>> Result of each check, first level key is category, second level key is title
+	 * @return array<string,array<string,SetupResult>> Result of each check, first level key is category, second level key is title
 	 */
 	public function runAll(): array;
 }
