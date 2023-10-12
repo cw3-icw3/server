@@ -189,9 +189,16 @@ class IMipPlugin extends SabreIMipPlugin {
 		// we also might not have an old event as this could be a new
 		// invitation, or a new recurrence exception
 		$attendee = $this->imipService->getCurrentAttendee($iTipMessage);
+		if($attendee === null) {
+			$this->logger->debug('Could not find recipient ' . $recipient . ' as attendee for event with UID ' . $vEvent->offsetGet('UID'));
+			$iTipMessage->scheduleStatus = '5.0; EMail delivery failed';
+			return;
+		}
 		// Don't send emails to things
 		if($this->imipService->isRoomOrResource($attendee)) {
-			$this->logger->debug('No invitation sent as recipient is room or resource');
+			$this->logger->debug('No invitation sent as recipient is room or resource', [
+				'attendee' => $recipient,
+			]);
 			$iTipMessage->scheduleStatus = '1.0;We got the message, but it\'s not significant enough to warrant an email';
 			return;
 		}
