@@ -441,7 +441,7 @@ export default Vue.extend({
 }
 
 $margin: 4px;
-$navigationToggleSize: 50px;
+$navigationToggleSize: 45px;
 
 .files-list {
 	&__header {
