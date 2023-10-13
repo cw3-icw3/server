@@ -905,7 +905,6 @@ export default {
 
 .user-list__row {
 	@include row;
-	border-bottom: 1px solid var(--color-border);
 
 	&:hover {
 		background-color: var(--color-background-hover);
