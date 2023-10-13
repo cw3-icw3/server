@@ -2,7 +2,7 @@
 	<NcSettingsSection :name="$t('dav', 'Availability')"
 		:description="$t('dav', 'If you configure your working hours, other users will see when you are out of office when they book a meeting.')">
 		<div class="time-zone">
-			<strong>
+			<strong class="time-zone__heading">
 				{{ $t('dav', 'Time zone:') }}
 			</strong>
 			<span class="time-zone-text">
@@ -126,20 +126,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.availability-day {
+::v-deep .availability-day {
 	padding: 0 10px 0 10px;
 	position: absolute;
 }
-.availability-slots {
+::v-deep .availability-slots {
 	display: flex;
-	white-space: nowrap;
+	white-space: normal;
 }
-.availability-slot {
+::v-deep .availability-slot {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	flex-wrap: wrap;
+	justify-content: center;
 }
-.availability-slot-group {
+::v-deep .availability-slot-group {
 	display: flex;
 	flex-direction: column;
 }
@@ -155,51 +157,45 @@ export default {
 }
 .time-zone {
 	padding: 32px 12px 12px 0;
+    display: flex;
+    flex-wrap: wrap;
+
+	&__heading {
+		margin-bottom: calc(var(--default-grid-baseline) * 2);
+		margin-right: calc(var(--default-grid-baseline) * 2);
+		line-height: var(--default-clickable-area);
+	}
 }
 .grid-table {
 	display: grid;
 	margin-bottom: 32px;
 	grid-column-gap: 24px;
 	grid-row-gap: 6px;
-	grid-template-columns: min-content min-content min-content;
+	grid-template-columns: min-content auto min-content;
+	max-width: 500px;
 }
 .button {
 	align-self: flex-end;
 }
-.label-weekday {
+::v-deep .label-weekday {
 	position: relative;
 	display: inline-flex;
 	padding-top: 4px;
-}
-.delete-slot {
-	background-color: transparent;
-	border: none;
-	padding-bottom: 12px;
-	opacity: .5;
-	&:hover {
-		opacity: 1;
-	}
+	align-self: center;
 }
 
-.add-another {
-	background-color: transparent;
-	border: none;
-	opacity: .5;
-	display: inline-flex;
-	padding: 0;
-	margin: 0;
-	margin-bottom: 3px;
-
-	&:hover {
-		opacity: 1;
-	}
+::v-deep .delete-slot {
+	padding-bottom: unset;
 }
+
+::v-deep .add-another {
+	align-self: center;
+}
+
 .to-text {
 	padding-right: 12px;
 }
-.time-zone-text{
-	padding-left: 22px;
-}
+
 .empty-content {
 	color: var(--color-text-lighter);
 	margin-top: 4px;
